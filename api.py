@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 import requests
 import os
+from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
 API_KEY= os.environ.get("API_KEY")
 API_URL = os.environ.get("API_URL")
@@ -87,6 +89,5 @@ def filter_profanity():
 def read_root():
     return jsonify({"message": "Profanity Filter API"}), 200
 
-# Run the Flask app
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
