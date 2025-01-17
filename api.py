@@ -4,9 +4,11 @@ import requests
 # Initialize Flask app
 app = Flask(__name__)
 
+API_KEY= os.environ.get("API_KEY")
+API_URL = os.environ.get("API_URL")
 # Sapling API settings
-SAPLING_API_KEY = "SICCY2TMCVS8EI95UEQL7NVZVG2JZCGU"
-SAPLING_API_URL = "https://api.sapling.ai/api/v1/profanity"
+# SAPLING_API_KEY = "SICCY2TMCVS8EI95UEQL7NVZVG2JZCGU"
+# SAPLING_API_URL = "https://api.sapling.ai/api/v1/profanity"
 
 # Preprocessing function to normalize obfuscated words
 def preprocess_text(text: str) -> str:
@@ -45,12 +47,12 @@ def filter_profanity():
 
     # Prepare payload for Sapling API
     payload = {
-        "key": SAPLING_API_KEY,
+        "key": API_KEY,
         "text": normalized_text
     }
 
     # Send request to Sapling API
-    response = requests.post(SAPLING_API_URL, json=payload)
+    response = requests.post(API_URL, json=payload)
 
     if response.status_code != 200:
         return jsonify({"error": "Error communicating with the API."}), 500
